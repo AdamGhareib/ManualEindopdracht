@@ -166,7 +166,66 @@ Upload and verify the code to see if it works, in the picture down below is how 
 
 # Step 4: Check the feed
 
-If your code uploaded succesfully you should now see feedback in the feed you created earlier
+Now its time to make your LED shine. Paste this code below on line 16.
+
+~~~
+#include <Adafruit_NeoPixel.h>
+#ifdef __AVR__
+ #include <avr/power.h> 
+#endif
+
+#define PIN D5 
+#define NUMPIXELS 18 
+
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+
+#define DELAYVAL 500 
+~~~
+
+Paste this code below on line 65 on the bottom of your "void setup".
+~~~
+#if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
+  clock_prescale_set(clock_div_1);
+#endif
+
+  pixels.begin();
+~~~
+
+Now you gonna change your void loop from this:
+~~~
+if (currentHour == 15) {
+    Serial.println("15:00");
+} else {
+    Serial.println("It's not 15:00");
+}
+~~~
+
+To this:
+~~~
+if ( currentHour == 15) {
+    Serial.println("15:00");
+    for(int i=0; i<NUMPIXELS; i++) { 
+    
+    pixels.setPixelColor(i, pixels.Color(0, 150, 0));
+
+    pixels.show();
+
+    delay(DELAYVAL); 
+  }
+  } else {
+    for(int i=0; i<NUMPIXELS; i++) {
+    
+    pixels.setPixelColor(i, pixels.Color(150, 150, 0));
+
+    pixels.show();
+
+    delay(DELAYVAL);
+  }
+    Serial.println("Loser");
+  }
+~~~
+
+Basically what this code is saying, when its 15:00 the LEDS turn green. When it's not 15:00 so 14:00 or past 16:00 o'clock then your LED light will turn yellow. That's how you make your LED light change to an specific color each hour.
 
 # Errors:
 
