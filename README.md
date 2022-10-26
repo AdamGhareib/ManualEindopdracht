@@ -140,6 +140,12 @@ const char *ssid     = "REPLACE_WITH_YOUR_SSID";
 const char *password = "REPLACE_WITH_YOUR_PASSWORD";
 ~~~
 
+Go to line 50 and change your setTimeOffset from "0" to "7200" to match Amsterdam's timezone.
+
+~~~
+timeClient.setTimeOffset(7200);
+~~~
+
 # Step 3: Upload & Verify the code
 
 Now you can upload and verify the code! Check the serial monitor to see if you're connecting to the WiFi.
