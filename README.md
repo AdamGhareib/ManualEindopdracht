@@ -17,7 +17,7 @@ In this tutorial you will learn how to make your LED change color after time pas
 Install the NTP library. In your Arduino IDE, go to Sketch > Library > Manage Libraries.
 Search for NTPClient and install the library by Fabrice Weinberg as shown in the image below.
 
-<img src="/imagesiot/create_feed.png">
+<img src="/images/Library.webp">
 
 # Step 2: Upload & Verify the code 
 
@@ -147,7 +147,7 @@ timeClient.setTimeOffset(7200);
 ~~~
 
 Upload and verify the code to see if it works, in the picture down below is how it should look.
-<img src="/imagesiot/connection_error.png">
+<img src="/images/Result1.png">
 
 # Step 3: Add a loop
 
@@ -162,7 +162,7 @@ if (currentHour == 15) {
 ~~~
 
 Upload and verify the code to see if it works, in the picture down below is how it should look.
-<img src="/imagesiot/connection_error.png">
+<img src="/images/Loop.png">
 
 # Step 4: Check the feed
 
@@ -230,7 +230,7 @@ Basically what this code is saying, when its 15:00 the LEDS turn green. When it'
 # Errors:
 
 Problem:
-<img src="/imagesiot/connection_error.png">
+<img src="/images/Error.png">
 
 
 
