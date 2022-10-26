@@ -236,5 +236,5 @@ Problem:
 
 # Sources:
 
-https://randomnerdtutorials.com/esp8266-nodemcu-date-time-ntp-client-server-arduino/
+https://randomnerdtutorials.com/esp8266-nodemcu-date-time-ntp-client-server-arduino/ <br>
 https://www.arduinolibraries.info/libraries/ntp-client
