@@ -231,7 +231,7 @@ Basically what this code is saying, when its 15:00 the LEDS turn green. When it'
 
 There is one error I encountered. It was very weird and I couldn't exactly determine where it came from. I think my ESP8266 file got corrupted but even deleting that didn't work. So I deleted and reinstalled Arduino which fixed my problem eventually.
 
-<img src="/images/Error.png">
+<img src="/images/Error2.png">
 
 
 
