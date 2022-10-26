@@ -20,7 +20,8 @@ Search for NTPClient and install the library by Fabrice Weinberg as shown in the
 <img src="/imagesiot/create_feed.png">
 
 # Step 2: Code
-~~~/*
+~~~
+/*
   Rui Santos
   Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-date-time-ntp-client-server-arduino/
   
@@ -126,7 +127,8 @@ void loop() {
   Serial.println("");
 
   delay(2000);
-}~~~
+} 
+~~~
 
 <img src="/imagesiot/connection_error.png">
 
