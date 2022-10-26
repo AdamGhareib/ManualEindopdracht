@@ -20,6 +20,9 @@ Search for NTPClient and install the library by Fabrice Weinberg as shown in the
 <img src="/imagesiot/create_feed.png">
 
 # Step 2: Code
+
+Copy and paste the code down below.
+
 ~~~
 /*
   Rui Santos
@@ -130,7 +133,12 @@ void loop() {
 } 
 ~~~
 
-<img src="/imagesiot/connection_error.png">
+Fill in your SSID and password.
+
+~~~
+const char *ssid     = "REPLACE_WITH_YOUR_SSID";
+const char *password = "REPLACE_WITH_YOUR_PASSWORD";
+~~~
 
 # Step 3: Upload & Verify the code
 
