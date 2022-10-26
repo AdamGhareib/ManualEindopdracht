@@ -62,6 +62,4 @@ Problem:
 
 # Sources:
 
-https://docs.google.com/document/d/13Dvwrig2d11fmS7UafYM0o4nzgMpfTHDadrS2Py0mg0/edit
-https://learn.adafruit.com/adafruit-io-basics-feeds/creating-a-feed
-https://learn.adafruit.com/adafruit-io-basics-feeds/sharing-a-feed
+https://randomnerdtutorials.com/esp8266-nodemcu-date-time-ntp-client-server-arduino/
