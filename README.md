@@ -19,7 +19,7 @@ Search for NTPClient and install the library by Fabrice Weinberg as shown in the
 
 <img src="/imagesiot/create_feed.png">
 
-# Step 2: Code
+# Step 2: Upload & Verify the code 
 
 Copy and paste the code down below.
 
@@ -146,9 +146,23 @@ Go to line 50 and change your setTimeOffset from "0" to "7200" to match Amsterda
 timeClient.setTimeOffset(7200);
 ~~~
 
-# Step 3: Upload & Verify the code
+Upload and verify the code to see if it works, in the picture down below is how it should look.
+<img src="/imagesiot/connection_error.png">
 
-Now you can upload and verify the code! Check the serial monitor to see if you're connecting to the WiFi.
+# Step 3: Add a loop
+
+Add on line 105 the code below and change the "currentHour == 13" to the current time in your timezone.
+
+~~~
+if (currentHour == 15) {
+    Serial.println("15:00");
+} else {
+    Serial.println("It's not 15:00");
+}
+~~~
+
+Upload and verify the code to see if it works, in the picture down below is how it should look.
+<img src="/imagesiot/connection_error.png">
 
 # Step 4: Check the feed
 
