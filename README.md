@@ -1,47 +1,133 @@
-# Send a signal from your NodeMCU to a different NodeMCU (Through the internet)
+# LED changes color after time passes
 
 - Gemaakt door Adam el Ghareib | 500849066
 - 26 october 2022
 
 # Introduction
 
-In this tutorial you will learn to send a signal from your NodeMCU to a different NodeMCU.
+In this tutorial you will learn how to make your LED change color after time passes.
 
 # Required hardware components
 
 - 1x Arduino Board (ESP8266 Development Board)
-- 1x Arduino Button
+- 1x LED
 
-# Step 1: Creating and sharing a feed
+# Step 1: Install the NTP (Network Time Protocol) library
 
-In order to create a feed you have to use Adafruit.io.
-Once you've created an account on Adafruit, you have to navigate to the "Feeds" tab at the top.
-After clicking the tab, you should see a pop up like in the image shown below:
+Install the NTP library. In your Arduino IDE, go to Sketch > Library > Manage Libraries.
+Search for NTPClient and install the library by Fabrice Weinberg as shown in the image below.
 
 <img src="/imagesiot/create_feed.png">
 
-In the pop up, give your feed a name and select "create"
+# Step 2: Code
 
-In order to share your feed, you first have to go over to the share tab as shown in the image below:
+`/*
+  Rui Santos
+  Complete project details at https://RandomNerdTutorials.com/esp8266-nodemcu-date-time-ntp-client-server-arduino/
+  
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files.
+  
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+*/
 
-<img src="/imagesiot/feed_sharing.png">
+#include <ESP8266WiFi.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
-Once you've clicked this option, a pop up should appear prompting you to enter an email or username of the person you'd like
-to share the feed with.
+// Replace with your network credentials
+const char *ssid     = "REPLACE_WITH_YOUR_SSID";
+const char *password = "REPLACE_WITH_YOUR_PASSWORD";
 
-<img src="/imagesiot/feed_sharing_2.png">
+// Define NTP Client to get time
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "pool.ntp.org");
 
-Once you've filled in the email or username of the person you want to share your feed with you can also determine their
-privileges within the feed by clicking the dropdown menu.
+//Week Days
+String weekDays[7]={"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
-<img src="/imagesiot/feed_sharing_3.png">
+//Month names
+String months[12]={"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-# Step 2: Install the button
+void setup() {
+  // Initialize Serial Monitor
+  Serial.begin(115200);
+  
+  // Connect to Wi-Fi
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
 
-Installing the button goes as follows. First open Arduino. Once you've done that, navigate to examples > Adafruit IO > Adafruitio_06_digital.in
-Once you have the example file open, fill in your adafruit io username and key (you can aquire these by clicking on the yellow key when in adafruit io)
-Afterwards, fill in your wifi SSID and your wifi password. Normally this should work fine however, in our case we were unable to succesfully
-establish a connection as shown in the image below:
+// Initialize a NTPClient to get time
+  timeClient.begin();
+  // Set offset time in seconds to adjust for your timezone, for example:
+  // GMT +1 = 3600
+  // GMT +8 = 28800
+  // GMT -1 = -3600
+  // GMT 0 = 0
+  timeClient.setTimeOffset(0);
+}
+
+void loop() {
+  timeClient.update();
+
+  time_t epochTime = timeClient.getEpochTime();
+  Serial.print("Epoch Time: ");
+  Serial.println(epochTime);
+  
+  String formattedTime = timeClient.getFormattedTime();
+  Serial.print("Formatted Time: ");
+  Serial.println(formattedTime);  
+
+  int currentHour = timeClient.getHours();
+  Serial.print("Hour: ");
+  Serial.println(currentHour);  
+
+  int currentMinute = timeClient.getMinutes();
+  Serial.print("Minutes: ");
+  Serial.println(currentMinute); 
+   
+  int currentSecond = timeClient.getSeconds();
+  Serial.print("Seconds: ");
+  Serial.println(currentSecond);  
+
+  String weekDay = weekDays[timeClient.getDay()];
+  Serial.print("Week Day: ");
+  Serial.println(weekDay);    
+
+  //Get a time structure
+  struct tm *ptm = gmtime ((time_t *)&epochTime); 
+
+  int monthDay = ptm->tm_mday;
+  Serial.print("Month day: ");
+  Serial.println(monthDay);
+
+  int currentMonth = ptm->tm_mon+1;
+  Serial.print("Month: ");
+  Serial.println(currentMonth);
+
+  String currentMonthName = months[currentMonth-1];
+  Serial.print("Month name: ");
+  Serial.println(currentMonthName);
+
+  int currentYear = ptm->tm_year+1900;
+  Serial.print("Year: ");
+  Serial.println(currentYear);
+
+  //Print complete date:
+  String currentDate = String(currentYear) + "-" + String(currentMonth) + "-" + String(monthDay);
+  Serial.print("Current date: ");
+  Serial.println(currentDate);
+
+  Serial.println("");
+
+  delay(2000);
+}`
 
 <img src="/imagesiot/connection_error.png">
 
@@ -63,3 +149,4 @@ Problem:
 # Sources:
 
 https://randomnerdtutorials.com/esp8266-nodemcu-date-time-ntp-client-server-arduino/
+https://www.arduinolibraries.info/libraries/ntp-client
